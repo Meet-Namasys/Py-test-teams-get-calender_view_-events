@@ -124,6 +124,19 @@ def get_groups_list(access_token) -> list:
 
 
 def get_calender_view(group_name, group_id, access_token, start_time, end_time) -> None:
+    """
+    Get calender view events data fo selected time period 
+    Args:
+    group_name: name of team group
+    group_id: id of team group
+    access_token: token for api to get data
+    start_time: Starting date to time period
+    end_time: Last date of time period
+
+
+    Return: [groups1,group2,...]
+    get_groups_list Example: GROUP_LIST = get_calender_view("nmasysy", "asas-sdsd-sd", "access_token", start_time, end_time)
+    """
 
     event_url = f"https://graph.microsoft.com/v1.0/groups/{group_id}/calendarView?startDateTime={start_time}&endDateTime={end_time}"
     print(event_url)
@@ -134,7 +147,7 @@ def get_calender_view(group_name, group_id, access_token, start_time, end_time) 
         'Prefer': 'outlook.body-content-type="text"'
     }
 
-    event_response = requests.get(url=event_url, headers=headers)
+    event_response = requests.get(url=event_url, headers=headers,timeout=None)
     print(group_name, group_id, event_response.status_code)
 
     if event_response.status_code == 200:
